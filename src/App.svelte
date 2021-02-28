@@ -1,30 +1,45 @@
 <script>
-	export let name;
+	import Notification from "./Notification.svelte";
+	import { isNotificationVisible, showNotification } from "./notification-store.js";
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+{#if $isNotificationVisible}
+	<Notification />
+{/if}
+<button class="show-notification-btn" on:click={() => {
+	showNotification('Yay! your order has been placed.');
+}}>Show Notification</button>
+
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+	:global(body) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
+	
+    .show-notification-btn {
+    	background-image: linear-gradient(to right, #FF8008 0%, #FFC837  51%, #FF8008  100%);
+    }
+    .show-notification-btn {
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;            
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+            cursor: pointer;
+          }
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+          .show-notification-btn:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+         
 </style>
